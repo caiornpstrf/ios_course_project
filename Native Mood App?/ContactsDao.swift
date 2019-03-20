@@ -9,5 +9,22 @@
 import UIKit
 
 class ContactsDao: NSObject {
-
+    static private var defaultDao: ContactsDao!
+    var contacts: Array<Contact>
+    
+    static func sharedInstance() -> ContactsDao {
+        if defaultDao == nil {
+            defaultDao = ContactsDao()
+        }
+        return defaultDao
+    }
+    
+    override private init() {
+        self.contacts = Array()
+        super.init()
+    }
+    
+    func add(_ contact: Contact) {
+        self.contacts.append(contact)
+    }
 }

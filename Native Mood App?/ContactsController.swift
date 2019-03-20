@@ -9,6 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var dao:ContactsDao!
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.dao = ContactsDao.sharedInstance()
+        super.init(coder: aDecoder)
+    }
 
     @IBOutlet var labelName: UILabel!
     @IBOutlet var labelPhone: UILabel!
@@ -23,12 +30,14 @@ class ViewController: UIViewController {
     
     
     @IBAction func changeLabel() {
-        //let name = labelName.text
-        //let phone = labelPhone.text
-        //let address = labelAddress.text
-        //let site = labelSite.text
+        let contact: Contact = Contact()
+        contact.name = textfName.text
+        contact.phone = textfPhone.text
+        contact.address = textfAddress.text
+        contact.site = textfSite.text
         
-        //print(name + phone + address + site)
+        dao.add(contact)
+        print(dao.contacts)
         
         labelMessage.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { // Change `2.0` to the desired number of seconds.

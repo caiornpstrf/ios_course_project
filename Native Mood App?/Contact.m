@@ -6,9 +6,9 @@
 //  Copyright © 2019 Caio Reis. All rights reserved.
 //
 
-#import "ContactsModel.h"
+#import "Contact.h"
 
-@implementation ContactsModel
+@implementation Contact
 NSString *name;
 NSString *phone;
 NSString *address;

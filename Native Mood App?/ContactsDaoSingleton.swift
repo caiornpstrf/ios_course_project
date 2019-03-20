@@ -8,6 +8,9 @@
 
 import UIKit
 
-class ContactsDaoSingleton: NSObject {
 
+static func SharedInstance() {
+    if ContactsDao == nil {
+        defaultDao = ContactsDao()
+    }
 }
