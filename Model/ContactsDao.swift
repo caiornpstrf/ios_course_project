@@ -27,4 +27,8 @@ class ContactsDao: NSObject {
     func add(_ contact: Contact) {
         self.contacts.append(contact)
     }
+    
+    func remove(_ index: Int) {
+        self.contacts.remove(at: index)
+    }
 }

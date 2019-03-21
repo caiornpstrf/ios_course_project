@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ContactsController: UIViewController {
     
     var dao:ContactsDao!
     
@@ -29,18 +29,25 @@ class ViewController: UIViewController {
     @IBOutlet var textfSite: UITextField!
     
     
-    @IBAction func changeLabel() {
+    @IBAction func addContact() {
+        dao.add(self.getContact())
+        print(dao.contacts)
+        self.popMessage(5)
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    func getContact() -> Contact {
         let contact: Contact = Contact()
         contact.name = textfName.text
         contact.phone = textfPhone.text
         contact.address = textfAddress.text
         contact.site = textfSite.text
-        
-        dao.add(contact)
-        print(dao.contacts)
-        
+        return contact
+    }
+    
+    func popMessage(_ time: Double) {
         labelMessage.isHidden = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { // Change `2.0` to the desired number of seconds.
+        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
             self.labelMessage.isHidden = true
         }
     }
