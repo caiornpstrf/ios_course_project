@@ -10,7 +10,7 @@ import UIKit
 
 class ContactsDao: NSObject {
     static private var defaultDao: ContactsDao!
-    var contacts: Array<Contact>
+    private var contacts: Array<Contact>
     
     static func sharedInstance() -> ContactsDao {
         if defaultDao == nil {
@@ -30,5 +30,21 @@ class ContactsDao: NSObject {
     
     func remove(_ index: Int) {
         self.contacts.remove(at: index)
+    }
+    
+    func getList() -> Array<Contact> {
+        return self.contacts
+    }
+    
+    func getAt(_ at: Int) -> Contact {
+        return self.contacts[at]
+    }
+    
+    func edit(_ at: Int, _ contact: Contact) {
+        self.contacts[at] = contact
+    }
+    
+    func getCount() -> Int {
+        return self.contacts.count
     }
 }

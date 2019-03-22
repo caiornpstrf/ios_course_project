@@ -10,7 +10,11 @@ import UIKit
 
 class ContactsController: UIViewController {
     
+    static let cellId:String = "ContactsCell"
+    
     var dao:ContactsDao!
+    var activeContact:Contact!
+    var activeIndex:Int!
     
     required init?(coder aDecoder: NSCoder) {
         self.dao = ContactsDao.sharedInstance()
@@ -31,8 +35,11 @@ class ContactsController: UIViewController {
     
     @IBAction func addContact() {
         dao.add(self.getContact())
-        print(dao.contacts)
-        self.popMessage(5)
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func editContact() {
+        dao.edit(self.activeIndex, self.getContact())
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -54,7 +61,15 @@ class ContactsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        if self.activeContact != nil {
+            self.textfName.text = self.activeContact.name
+            self.textfPhone.text = self.activeContact.phone
+            self.textfAddress.text = self.activeContact.address
+            self.textfSite.text = self.activeContact.site
+            
+            self.navigationItem.rightBarButtonItem =
+                UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editContact))
+        }
     }
 
     override func didReceiveMemoryWarning() {

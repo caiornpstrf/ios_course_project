@@ -12,7 +12,7 @@
         <!--Add Contact-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController wantsFullScreenLayout="YES" id="BYZ-38-t0r" customClass="ContactsController" customModule="Native_Mood_App_" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactsForm" wantsFullScreenLayout="YES" id="BYZ-38-t0r" customClass="ContactsController" customModule="Native_Mood_App_" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -93,7 +93,7 @@
                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Contact" id="Wyb-Oo-Sg7">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="FOW-HU-NK5">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="FOW-HU-NK5">
                             <connections>
                                 <action selector="addContact" destination="BYZ-38-t0r" id="f9q-Ax-uhv"/>
                             </connections>

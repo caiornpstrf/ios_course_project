@@ -41,12 +41,12 @@ class ContactsListController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         // print(self.dao.contacts.count)
-        return self.dao.contacts.count
+        return self.dao.getCount()
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactsListId", for: indexPath)
-        let contact:Contact = self.dao.contacts[indexPath.row]
+        let contact:Contact = self.dao.getAt(indexPath.row)
         // Configure the cell...
         // print(self.dao.contacts[indexPath.row].name)
         cell.textLabel?.text = contact.name
@@ -55,6 +55,18 @@ class ContactsListController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedContact = self.dao.getAt(indexPath.row)
+        self.showForm(selectedContact, indexPath.row)
+    }
+    
+    func showForm(_ selectedContact: Contact, _ activeIndex: Int) {
+        let storyboard:UIStoryboard = UIStoryboard(name: "ContactsView", bundle: nil)
+        let form = storyboard.instantiateViewController(withIdentifier: "ContactsForm") as! ContactsController
+        form.activeContact = selectedContact
+        form.activeIndex = activeIndex
+        self.navigationController?.pushViewController(form, animated: true)
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
