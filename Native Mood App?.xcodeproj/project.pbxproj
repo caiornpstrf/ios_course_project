@@ -16,6 +16,7 @@
 		4C24A2402241AEAD0092C147 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C24A23E2241AEAD0092C147 /* LaunchScreen.storyboard */; };
 		4C8987C92241CDBD008F77C0 /* ContactsDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8987C82241CDBD008F77C0 /* ContactsDao.swift */; };
 		6115E5F522430A4400BA4943 /* ContactsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115E5F422430A4400BA4943 /* ContactsListController.swift */; };
+		6115E5F7224464EC00BA4943 /* ContactsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115E5F6224464EC00BA4943 /* ContactsControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		4C24A2412241AEAD0092C147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C8987C82241CDBD008F77C0 /* ContactsDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsDao.swift; sourceTree = "<group>"; };
 		6115E5F422430A4400BA4943 /* ContactsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListController.swift; sourceTree = "<group>"; };
+		6115E5F6224464EC00BA4943 /* ContactsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsControllerDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			children = (
 				4C24A2342241AEAD0092C147 /* ContactsController.swift */,
 				6115E5F422430A4400BA4943 /* ContactsListController.swift */,
+				6115E5F6224464EC00BA4943 /* ContactsControllerDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				6115E5F522430A4400BA4943 /* ContactsListController.swift in Sources */,
 				4C149BB42241C2990089F427 /* Contact.m in Sources */,
 				4C8987C92241CDBD008F77C0 /* ContactsDao.swift in Sources */,
+				6115E5F7224464EC00BA4943 /* ContactsControllerDelegate.swift in Sources */,
 				4C24A2332241AEAD0092C147 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

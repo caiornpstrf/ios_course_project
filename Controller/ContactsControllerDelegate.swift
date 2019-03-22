@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+protocol ContactsControllerDelegate {
+    func isContactUpdated(_ contact:Contact)
+    func isContactAdded(_ contact:Contact)  
+}

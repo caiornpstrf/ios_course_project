@@ -147,7 +147,7 @@
                     <navigationItem key="navigationItem" title="Contacts" id="ZeV-OU-X7V">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="OOu-7i-fQD">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="kci-Fi-Gyx"/>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="ContactsFormSegue" id="kci-Fi-Gyx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

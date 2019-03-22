@@ -12,6 +12,8 @@ class ContactsController: UIViewController {
     
     static let cellId:String = "ContactsCell"
     
+    var delegate:ContactsControllerDelegate?
+    
     var dao:ContactsDao!
     var activeContact:Contact!
     var activeIndex:Int!
@@ -34,12 +36,16 @@ class ContactsController: UIViewController {
     
     
     @IBAction func addContact() {
-        dao.add(self.getContact())
+        let contact:Contact = self.getContact()
+        dao.add(contact)
+        self.delegate?.isContactAdded(contact)
         _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func editContact() {
-        dao.edit(self.activeIndex, self.getContact())
+        let contact:Contact = self.getContact()
+        dao.edit(self.activeIndex, contact)
+        self.delegate?.isContactUpdated(contact)
         _ = self.navigationController?.popViewController(animated: true)
     }
     

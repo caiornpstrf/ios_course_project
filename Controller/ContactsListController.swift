@@ -8,17 +8,37 @@
 
 import UIKit
 
-class ContactsListController: UITableViewController {
+class ContactsListController: UITableViewController, ContactsControllerDelegate {
 
     var dao:ContactsDao
+    var hightlightLine: IndexPath?
     
     required init?(coder aDecoder: NSCoder) {
         self.dao = ContactsDao.sharedInstance()
         super.init(coder: aDecoder)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ContactsFormSegue" {
+            if let form = segue.destination as? ContactsController {
+                    form.delegate = self
+            }
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
+        if let index = self.hightlightLine {
+            self.tableView.selectRow(at: index, animated: true, scrollPosition: .middle)
+            self.deselectRow(index, 5)
+        }
+    }
+    
+    func deselectRow(_ index: IndexPath, _ time: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+            self.tableView.deselectRow(at: index, animated: true)
+            self.hightlightLine = Optional.none
+        }
     }
     
     override func viewDidLoad() {
@@ -63,6 +83,7 @@ class ContactsListController: UITableViewController {
     func showForm(_ selectedContact: Contact, _ activeIndex: Int) {
         let storyboard:UIStoryboard = UIStoryboard(name: "ContactsView", bundle: nil)
         let form = storyboard.instantiateViewController(withIdentifier: "ContactsForm") as! ContactsController
+        form.delegate = self
         form.activeContact = selectedContact
         form.activeIndex = activeIndex
         self.navigationController?.pushViewController(form, animated: true)
@@ -112,5 +133,12 @@ class ContactsListController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func isContactUpdated(_ contact: Contact) {
+        self.hightlightLine = IndexPath(row: self.dao.getIndex(contact), section: 0)
+    }
+    
+    func isContactAdded(_ contact: Contact) {
+        self.hightlightLine = IndexPath(row: self.dao.getIndex(contact), section: 0)
+    }
 }

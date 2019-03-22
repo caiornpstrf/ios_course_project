@@ -40,6 +40,10 @@ class ContactsDao: NSObject {
         return self.contacts[at]
     }
     
+    func getIndex(_ of: Contact) -> Int {
+        return self.contacts.index(of: of)!
+    }
+    
     func edit(_ at: Int, _ contact: Contact) {
         self.contacts[at] = contact
     }
