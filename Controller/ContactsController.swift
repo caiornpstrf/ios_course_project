@@ -8,7 +8,10 @@
 
 import UIKit
 
-class ContactsController: UIViewController {
+class ContactsController: UIViewController,
+                          UIImagePickerControllerDelegate,
+                          UINavigationControllerDelegate
+{
     
     static let cellId:String = "ContactsCell"
     
@@ -34,6 +37,7 @@ class ContactsController: UIViewController {
     @IBOutlet var textfAddress: UITextField!
     @IBOutlet var textfSite: UITextField!
     
+    @IBOutlet var imageProfile: UIImageView!
     
     @IBAction func addContact() {
         let contact:Contact = self.getContact()
@@ -51,10 +55,11 @@ class ContactsController: UIViewController {
     
     func getContact() -> Contact {
         let contact: Contact = Contact()
-        contact.name = textfName.text
-        contact.phone = textfPhone.text
-        contact.address = textfAddress.text
-        contact.site = textfSite.text
+        contact.name = self.textfName.text
+        contact.phone = self.textfPhone.text
+        contact.address = self.textfAddress.text
+        contact.site = self.textfSite.text
+        contact.profilePic = self.imageProfile.image
         return contact
     }
     
@@ -65,6 +70,21 @@ class ContactsController: UIViewController {
         }
     }
     
+    func selectPhoto(sender: AnyObject) {
+        print("HERE")
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            
+        }
+        else {
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = true
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.activeContact != nil {
@@ -72,10 +92,16 @@ class ContactsController: UIViewController {
             self.textfPhone.text = self.activeContact.phone
             self.textfAddress.text = self.activeContact.address
             self.textfSite.text = self.activeContact.site
+            self.imageProfile.image = self.activeContact.profilePi
             
             self.navigationItem.rightBarButtonItem =
                 UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editContact))
         }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.selectPhoto(sender:)))
+        self.imageProfile.addGestureRecognizer(tap)
+        self.imageProfile.layer.cornerRadius = self.imageProfile.frame.height/2
+        self.imageProfile.clipsToBounds = true
+        self.imageProfile.layer.masksToBounds = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,6 +109,12 @@ class ContactsController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self.imageProfile.image = selectedImage
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
 }
 

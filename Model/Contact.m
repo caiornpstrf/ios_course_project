@@ -13,6 +13,7 @@ NSString *name;
 NSString *phone;
 NSString *address;
 NSString *site;
+//UIImage *profilePic;
 
 - (NSString *)description {       
     return [NSString stringWithFormat:@"Name: %@,  Phone: %@  Address: %@  Site: %@", self.name, self.phone, self.address, self.site];

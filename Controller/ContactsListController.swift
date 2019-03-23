@@ -12,6 +12,7 @@ class ContactsListController: UITableViewController, ContactsControllerDelegate 
 
     var dao:ContactsDao
     var hightlightLine: IndexPath?
+    var selectedContact:Contact!
     
     required init?(coder aDecoder: NSCoder) {
         self.dao = ContactsDao.sharedInstance()
@@ -44,6 +45,8 @@ class ContactsListController: UITableViewController, ContactsControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(showMoreOptions(gesture:)))
+        self.tableView.addGestureRecognizer(longPress)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -51,6 +54,16 @@ class ContactsListController: UITableViewController, ContactsControllerDelegate 
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    func showMoreOptions(gesture: UIGestureRecognizer) {
+        if gesture.state == .began {
+            let point = gesture.location(in: self.tableView)
+            if let indexPath = self.tableView.indexPathForRow(at: point) {
+                self.selectedContact = self.dao.getAt(indexPath.row)
+                let actions = ActionManager(of: self.selectedContact)
+                actions.showActions(in: self)
+            }
+        }
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
