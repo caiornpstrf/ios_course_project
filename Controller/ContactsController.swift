@@ -92,7 +92,7 @@ class ContactsController: UIViewController,
             self.textfPhone.text = self.activeContact.phone
             self.textfAddress.text = self.activeContact.address
             self.textfSite.text = self.activeContact.site
-            self.imageProfile.image = self.activeContact.profilePi
+            self.imageProfile.image = self.activeContact.profilePic
             
             self.navigationItem.rightBarButtonItem =
                 UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editContact))
