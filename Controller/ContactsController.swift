@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ContactsController: UIViewController,
                           UIImagePickerControllerDelegate,
@@ -30,7 +31,11 @@ class ContactsController: UIViewController,
     @IBOutlet var labelPhone: UILabel!
     @IBOutlet var labelAddress: UILabel!
     @IBOutlet var labelSite: UILabel!
-    @IBOutlet var labelMessage: UILabel!
+    //@IBOutlet var labelMessage: UILabel!
+    @IBOutlet var labelLat: UILabel!
+    @IBOutlet var labelLon: UILabel!
+    @IBOutlet var labelLatNumb: UILabel!
+    @IBOutlet var labelLonNumb: UILabel!
     
     @IBOutlet var textfName: UITextField!
     @IBOutlet var textfPhone: UITextField!
@@ -53,6 +58,30 @@ class ContactsController: UIViewController,
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func getLocation() {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(self.textfAddress.text!) { (result, error) in
+            if error == nil && result?.count ?? 0 > 0 {
+                let placemark = result![0]
+                let coordinates = placemark.location!.coordinate
+                
+                self.labelLatNumb.text = coordinates.latitude.description
+                self.labelLonNumb.text = coordinates.longitude.description
+            }
+            else {
+                let alert = UIAlertController(
+                    title: "Address not informed!",
+                    message: "Please inform an address before finding coordinates.",
+                    preferredStyle: .alert
+                )
+                
+                let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(cancel)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
     func getContact() -> Contact {
         let contact: Contact = Contact()
         contact.name = self.textfName.text
@@ -60,15 +89,21 @@ class ContactsController: UIViewController,
         contact.address = self.textfAddress.text
         contact.site = self.textfSite.text
         contact.profilePic = self.imageProfile.image
+        if let latitude = Double(self.labelLatNumb.text!) {
+            contact.latitude = latitude as NSNumber
+        }
+        if let longitude = Double(self.labelLonNumb.text!) {
+            contact.longitude = longitude as NSNumber
+        }
         return contact
     }
     
-    func popMessage(_ time: Double) {
-        labelMessage.isHidden = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
-            self.labelMessage.isHidden = true
-        }
-    }
+//    func popMessage(_ time: Double) {
+//        labelMessage.isHidden = false
+//        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+//            self.labelMessage.isHidden = true
+//        }
+//    }
     
     func selectPhoto(sender: AnyObject) {
         print("HERE")
@@ -93,11 +128,14 @@ class ContactsController: UIViewController,
             self.textfAddress.text = self.activeContact.address
             self.textfSite.text = self.activeContact.site
             self.imageProfile.image = self.activeContact.profilePic
+            self.labelLatNumb.text = self.activeContact.latitude?.description
+            self.labelLonNumb.text = self.activeContact.longitude?.description
             
             self.navigationItem.rightBarButtonItem =
                 UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editContact))
         }
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.selectPhoto(sender:)))
+        // override viewDidLayoutSubviews
         self.imageProfile.addGestureRecognizer(tap)
         self.imageProfile.layer.cornerRadius = self.imageProfile.frame.height/2
         self.imageProfile.clipsToBounds = true

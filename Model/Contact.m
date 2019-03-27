@@ -19,6 +19,18 @@ NSString *site;
     return [NSString stringWithFormat:@"Name: %@,  Phone: %@  Address: %@  Site: %@", self.name, self.phone, self.address, self.site];
 }
 
+- (NSString *)title {
+    return self.name;
+}
+
+- (NSString *)subtitle {
+    return self.address;
+}
+
+- (CLLocationCoordinate2D)coordinate {
+    return CLLocationCoordinate2DMake([self.latitude doubleValue], [self.longitude doubleValue]);
+}
+
 //- (NSString *) name {
 //    return self.name;
 //}

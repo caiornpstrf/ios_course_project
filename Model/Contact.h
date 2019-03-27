@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <MapKit/MKAnnotation.h>
 
-@interface Contact : NSObject
-    @property(strong) NSString* name;
-    @property(strong) NSString* phone;
-    @property(strong) NSString* address;
-    @property(strong) NSString* site;
-    @property(strong) UIImage* profilePic;
+@interface Contact : NSObject <MKAnnotation>
+@property(strong) NSString* name;
+@property(strong) NSString* phone;
+@property(strong) NSString* address;
+@property(strong) NSString* site;
+@property(strong) UIImage* profilePic;
+@property(strong) NSNumber* latitude;
+@property(strong) NSNumber* longitude;
 @end

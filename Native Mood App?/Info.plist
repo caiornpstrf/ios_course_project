@@ -34,5 +34,7 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We would like to use the photo library to save to the contact!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We would like to know your location to show on the map!</string>
 </dict>
 </plist>

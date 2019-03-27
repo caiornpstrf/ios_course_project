@@ -1,0 +1,6 @@
+framework module Pods_Native_Mood_App_ {
+  umbrella header "Pods-Native Mood App?-umbrella.h"
+
+  export *
+  module * { export * }
+}
