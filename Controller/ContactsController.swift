@@ -45,16 +45,16 @@ class ContactsController: UIViewController,
     @IBOutlet var imageProfile: UIImageView!
     
     @IBAction func addContact() {
-        let contact:Contact = self.getContact()
-        dao.add(contact)
-        self.delegate?.isContactAdded(contact)
+        self.getContact()
+        dao.add(self.activeContact)
+        self.delegate?.isContactAdded(self.activeContact)
         _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func editContact() {
-        let contact:Contact = self.getContact()
-        dao.edit(self.activeIndex, contact)
-        self.delegate?.isContactUpdated(contact)
+        self.getContact()
+        dao.edit(self.activeIndex, self.activeContact)
+        self.delegate?.isContactUpdated(self.activeContact)
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -82,20 +82,21 @@ class ContactsController: UIViewController,
         }
     }
     
-    func getContact() -> Contact {
-        let contact: Contact = Contact()
-        contact.name = self.textfName.text
-        contact.phone = self.textfPhone.text
-        contact.address = self.textfAddress.text
-        contact.site = self.textfSite.text
-        contact.profilePic = self.imageProfile.image
+    func getContact() {
+        if self.activeContact == nil {
+            self.activeContact = dao.newContact()
+        }
+        self.activeContact.name = self.textfName.text
+        self.activeContact.phone = self.textfPhone.text
+        self.activeContact.address = self.textfAddress.text
+        self.activeContact.site = self.textfSite.text
+        self.activeContact.profilePic = self.imageProfile.image
         if let latitude = Double(self.labelLatNumb.text!) {
-            contact.latitude = latitude as NSNumber
+            self.activeContact.latitude = latitude as NSNumber
         }
         if let longitude = Double(self.labelLonNumb.text!) {
-            contact.longitude = longitude as NSNumber
+            self.activeContact.longitude = longitude as NSNumber
         }
-        return contact
     }
     
 //    func popMessage(_ time: Double) {

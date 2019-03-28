@@ -9,15 +9,11 @@
 #import "Contact.h"
 
 @implementation Contact
-NSString *name;
-NSString *phone;
-NSString *address;
-NSString *site;
-//UIImage *profilePic;
+@dynamic name, phone, address, site, latitude, longitude, profilePic;
 
-- (NSString *)description {       
-    return [NSString stringWithFormat:@"Name: %@,  Phone: %@  Address: %@  Site: %@", self.name, self.phone, self.address, self.site];
-}
+//- (NSString *)description {
+//    return [NSString stringWithFormat:@"Name: %@,  Phone: %@  Address: %@  Site: %@", self.name, self.phone, self.address, self.site];
+//}
 
 - (NSString *)title {
     return self.name;
